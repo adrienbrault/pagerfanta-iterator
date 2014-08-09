@@ -1,0 +1,28 @@
+{
+    "name": "adrienbrault/pagerfanta-iterator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adrien Brault",
+            "email": "adrien.brault@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AdrienBrault\\PagerfantaIterator\\": "src/",
+            "AdrienBrault\\PagerfantaIterator\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "pagerfanta/pagerfanta": "~1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "phpspec/prophecy-phpunit": "~1.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}
