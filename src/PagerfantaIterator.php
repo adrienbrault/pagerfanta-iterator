@@ -14,15 +14,12 @@ class PagerfantaIterator implements \Iterator
      */
     private $pager;
 
-    /**
-     * @var \Iterator
-     */
-    private $currentPageIterator;
+    private $currentPage;
 
     public function __construct(Pagerfanta $pager)
     {
         $this->pager = clone $pager;
-        $this->pager->setCurrentPage(1);
+        $this->rewind();
     }
 
     /**
@@ -30,7 +27,7 @@ class PagerfantaIterator implements \Iterator
      */
     public function current()
     {
-        return $this->getCurrentPageIterator()->current();
+        return $this->pager->getIterator();
     }
 
     /**
@@ -38,12 +35,10 @@ class PagerfantaIterator implements \Iterator
      */
     public function next()
     {
-        $this->getCurrentPageIterator()->next();
+        $this->currentPage++;
 
-        if (!$this->getCurrentPageIterator()->valid()
-            && $this->pager->hasNextPage()) {
+        if ($this->valid()) {
             $this->pager->setCurrentPage($this->pager->getNextPage());
-            $this->currentPageIterator = $this->pager->getIterator();
         }
     }
 
@@ -52,11 +47,7 @@ class PagerfantaIterator implements \Iterator
      */
     public function key()
     {
-        return
-            $this->pager->getMaxPerPage()
-            * ($this->pager->getCurrentPage() - 1)
-            + $this->currentPageIterator->key()
-        ;
+        return $this->pager->getCurrentPage();
     }
 
     /**
@@ -64,7 +55,7 @@ class PagerfantaIterator implements \Iterator
      */
     public function valid()
     {
-        return $this->getCurrentPageIterator()->valid();
+        return $this->currentPage <= $this->pager->getNbPages();
     }
 
     /**
@@ -72,15 +63,17 @@ class PagerfantaIterator implements \Iterator
      */
     public function rewind()
     {
-        $this->pager->setCurrentPage(1);
+        $this->currentPage = 1;
+        $this->pager->setCurrentPage($this->currentPage);
     }
 
-    private function getCurrentPageIterator()
+    public static function iterateOverPages(Pagerfanta $pager)
     {
-        if (null === $this->currentPageIterator) {
-            $this->currentPageIterator = $this->pager->getIterator();
-        }
+        return new static($pager);
+    }
 
-        return $this->currentPageIterator;
+    public static function iterateOverElements(Pagerfanta $pager)
+    {
+        return new IteratorIterator(static::iterateOverPages($pager));
     }
 }
