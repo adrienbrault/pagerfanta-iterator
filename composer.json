@@ -9,7 +9,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "AdrienBrault\\PagerfantaIterator\\": "src/",
+            "AdrienBrault\\PagerfantaIterator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "AdrienBrault\\PagerfantaIterator\\Tests\\": "tests/"
         }
     },
