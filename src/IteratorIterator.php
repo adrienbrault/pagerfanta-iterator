@@ -29,7 +29,7 @@ class IteratorIterator implements \Iterator
      */
     public function current()
     {
-        return $this->currentIterator->current();
+        return $this->getCurrentIterator()->current();
     }
 
     /**
