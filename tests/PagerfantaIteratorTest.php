@@ -27,4 +27,22 @@ class PagerfantaIteratorTest extends ProphecyTestCase
             iterator_to_array($pagerIterator)
         );
     }
+
+    public function testStartPage()
+    {
+        $adapterProphecy = $this->prophesize('Pagerfanta\Adapter\AdapterInterface');
+        $adapterProphecy->getNbResults()->willReturn(18);
+        $adapterProphecy->getSlice(5, 5)->willReturn(range(5, 9))->shouldBeCalledTimes(1);
+        $adapterProphecy->getSlice(10, 5)->willReturn(range(10, 14))->shouldBeCalledTimes(1);
+        $adapterProphecy->getSlice(15, 5)->willReturn(range(15, 18))->shouldBeCalledTimes(1);
+
+        $pager = new Pagerfanta($adapterProphecy->reveal());
+        $pager->setMaxPerPage(5);
+
+        $pagerIterator = new IteratorIterator(new PagerfantaIterator($pager, 2));
+        $this->assertSame(
+            range(5, 18),
+            iterator_to_array($pagerIterator)
+        );
+    }
 }

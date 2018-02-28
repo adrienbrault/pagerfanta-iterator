@@ -16,9 +16,15 @@ class PagerfantaIterator implements \Iterator
 
     private $currentPage;
 
-    public function __construct(Pagerfanta $pager)
+    /**
+     * @var int
+     */
+    private $startPage;
+
+    public function __construct(Pagerfanta $pager, $startPage = 1)
     {
         $this->pager = clone $pager;
+        $this->startPage = (int) $startPage;
         $this->rewind();
     }
 
@@ -63,17 +69,17 @@ class PagerfantaIterator implements \Iterator
      */
     public function rewind()
     {
-        $this->currentPage = 1;
+        $this->currentPage = $this->startPage;
         $this->pager->setCurrentPage($this->currentPage);
     }
 
-    public static function iterateOverPages(Pagerfanta $pager)
+    public static function iterateOverPages(Pagerfanta $pager, $startPage = null)
     {
-        return new static($pager);
+        return new static($pager, $startPage);
     }
 
-    public static function iterateOverElements(Pagerfanta $pager)
+    public static function iterateOverElements(Pagerfanta $pager, $startPage = null)
     {
-        return new IteratorIterator(static::iterateOverPages($pager));
+        return new IteratorIterator(static::iterateOverPages($pager, $startPage));
     }
 }
