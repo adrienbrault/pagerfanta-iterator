@@ -73,12 +73,12 @@ class PagerfantaIterator implements \Iterator
         $this->pager->setCurrentPage($this->currentPage);
     }
 
-    public static function iterateOverPages(Pagerfanta $pager, $startPage = null)
+    public static function iterateOverPages(Pagerfanta $pager, $startPage = 1)
     {
         return new static($pager, $startPage);
     }
 
-    public static function iterateOverElements(Pagerfanta $pager, $startPage = null)
+    public static function iterateOverElements(Pagerfanta $pager, $startPage = 1)
     {
         return new IteratorIterator(static::iterateOverPages($pager, $startPage));
     }
