@@ -5,9 +5,9 @@ namespace AdrienBrault\PagerfantaIterator\Tests;
 use AdrienBrault\PagerfantaIterator\IteratorIterator;
 use AdrienBrault\PagerfantaIterator\PagerfantaIterator;
 use Pagerfanta\Pagerfanta;
-use Prophecy\PhpUnit\ProphecyTestCase;
+use PHPUnit\Framework\TestCase;
 
-class PagerfantaIteratorTest extends ProphecyTestCase
+class PagerfantaIteratorTest extends TestCase
 {
     public function test()
     {
