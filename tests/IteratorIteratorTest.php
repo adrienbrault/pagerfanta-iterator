@@ -3,8 +3,9 @@
 namespace AdrienBrault\PagerfantaIterator\Tests;
 
 use AdrienBrault\PagerfantaIterator\IteratorIterator;
+use PHPUnit\Framework\TestCase;
 
-class IteratorIteratorTest extends \PHPUnit_Framework_TestCase
+class IteratorIteratorTest extends TestCase
 {
     public function test()
     {
