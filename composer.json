@@ -18,10 +18,10 @@
         }
     },
     "require": {
-        "pagerfanta/pagerfanta": "~1.0"
+        "pagerfanta/pagerfanta": "^1.0|^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.8"
+        "phpunit/phpunit": "^4.8|^5.7|^7.2"
     },
     "extra": {
         "branch-alias": {
